@@ -1,0 +1,37 @@
+{
+  "name": "web",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@chakra-ui/core": "^1.0.0-next.2",
+    "@emotion/core": "^10.0.28",
+    "@emotion/styled": "^10.0.27",
+    "cra-template": "1.0.3",
+    "emotion-theming": "^10.0.27",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-photo-gallery": "^8.0.0",
+    "react-scripts": "3.4.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
