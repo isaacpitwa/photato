@@ -46,4 +46,13 @@ database.sync().then(() => {
     });
 });
 
+app.post('/photo', uploadMiddleware, async (req, res) => {
+    try {
+        const photo = await Photo.create(req.file);
+        res.json({success: true, photo});
+    } catch (err) {
+        res.status(422).json({success: false, message: err.message});
+    }
+});
+
 export default app
