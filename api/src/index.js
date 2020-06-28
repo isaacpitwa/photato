@@ -2,8 +2,11 @@ import http from 'http';
 import cors from 'cors';
 import express from 'express';
 import { Sequelize } from 'sequelize';
+import multer from 'multer';
+import { resolve } from 'path';
 const config = {
     port: 3001,
+    uploadDir: `${resolve(__dirname, '..')}/uploads/`,
     database: {
         username: "root",
         password: "admin",
@@ -20,7 +23,16 @@ app.server = http.createServer(app);
 // 3rd party middlewares
 app.use(cors({}));
 
-
+// setup multer
+const uploadMiddleware = multer({ 
+    dest: config.uploadDir,
+    fileFilter: function (req, file, cb) {
+        if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
+            return cb(new Error('Only image files are allowed!'));
+        }
+        cb(null, true);
+    }, 
+}).single('photo');
 // connect to db
 const database = new Sequelize(config.database);
 
