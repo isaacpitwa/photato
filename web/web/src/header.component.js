@@ -5,6 +5,8 @@ function Header ({
     isUploading = false, 
     onPhotoSelect,
 }) {
+    let hiddenInput = null;
+
     return (
         <Flex 
             px="4"
@@ -38,9 +40,16 @@ function Header ({
                     variantColor="blue"
                     isLoading={isUploading}
                     loadingText="Uploading..."
+                    onClick={() => hiddenInput.click()}
                 >
                     Upload Photo     
                 </Button>
+                <input
+                    hidden
+                    type='file'
+                    ref={el => hiddenInput = el}
+                    onChange={(e) => onPhotoSelect(e.target.files[0])}
+                />
             </Flex>
         </Flex>
     );

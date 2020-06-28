@@ -1,7 +1,8 @@
-import React from 'react';
+import React ,{ useState }from 'react';
 import PhotoGallery from 'react-photo-gallery';
-
+import { uploadPhoto } from './api';
 import Header from './header.component';
+
 
 function AppContainer() {
     const photos = [{
@@ -21,9 +22,17 @@ function AppContainer() {
         },
     ];
 
+    const [isUploading, setIsUploading] = useState(false);
+    
+    async function handlePhotoSelect (file) {
+        setIsUploading(true);
+        await uploadPhoto(file);
+        setIsUploading(false);
+    };
+
     return (
         <>
-            <Header/>
+            <Header onPhotoSelect={handlePhotoSelect}    isUploading={isUploading}/>
             <PhotoGallery
                 photos={photos}
             />
