@@ -63,5 +63,8 @@ app.get('/photo', async (req, res) => {
     const photos = await Photo.findAndCountAll();
     res.json({success: true, photos});
 });
+app.get("/photo/:filename", (req, res) => {
+    res.sendFile(join(config.uploadDir, `/${req.params.filename}`));
+});
 
 export default app
