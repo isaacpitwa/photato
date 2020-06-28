@@ -50,13 +50,21 @@ database.sync().then(() => {
     });
 });
 
-app.post('/photo', uploadMiddleware,(req, res)=>{
+app.post('/photo', uploadMiddleware,async(req, res)=>{
     try {
-        const photo =  Photo.create(req.file);
+        const photo =  await Photo.create(req.file);
         res.json({success: true, photo});
     } catch (err) {
         res.status(422).json({success: false, message: err.message});
     }
+});
+
+app.get('/photo', async (req, res) => {
+    const photos = await Photo.findAndCountAll();
+    res.json({success: true, photos});
+});
+app.get("/photo/:filename", (req, res) => {
+    res.sendFile(join(config.uploadDir, `/${req.params.filename}`));
 });
 
 export default app
