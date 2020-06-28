@@ -4,6 +4,8 @@ import express from 'express';
 import { Sequelize } from 'sequelize';
 import multer from 'multer';
 import { resolve } from 'path';
+import PhotoModel from './photo.model';
+
 const config = {
     port: 3001,
     uploadDir: `${resolve(__dirname, '..')}/uploads/`,
@@ -35,6 +37,8 @@ const uploadMiddleware = multer({
 }).single('photo');
 // connect to db
 const database = new Sequelize(config.database);
+const Photo = PhotoModel.init(database);
+
 
 database.sync().then(() => {
     app.get('/', (req, res) => {
@@ -46,9 +50,9 @@ database.sync().then(() => {
     });
 });
 
-app.post('/photo', uploadMiddleware, async (req, res) => {
+app.post('/photo', uploadMiddleware,(req, res)=>{
     try {
-        const photo = await Photo.create(req.file);
+        const photo =  Photo.create(req.file);
         res.json({success: true, photo});
     } catch (err) {
         res.status(422).json({success: false, message: err.message});
